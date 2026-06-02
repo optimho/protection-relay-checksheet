@@ -227,6 +227,17 @@ def build_check_sheet(wb):
         lbl(ws, r, 4, unit, bg=CCR)
         inp(ws, r, 5)
 
+    # 6 spare rows for additional analogue quantities (e.g. Y-side CTs on 700G/300G,
+    # differential quantities, neutral voltages, power, etc.)
+    for i in range(6):
+        r += 1
+        bg = CAL if i % 2 == 0 else CWH
+        lbl(ws, r, 1, "", bg=bg)                       # user fills in quantity name
+        lbl(ws, r, 2, "METER / Meters > Fundamental", bg=CCR)
+        inp(ws, r, 3, center=True, bg=bg)
+        inp(ws, r, 4, bg=bg)                           # user fills in unit
+        inp(ws, r, 5, bg=bg)
+
     # ── 5. CLOCK / TIME CHECK ────────────────────────────────────────────────
     r += 2
     h1(ws, r, "5.  CLOCK AND TIME SYNCHRONISATION")
