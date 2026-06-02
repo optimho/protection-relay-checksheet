@@ -19,7 +19,7 @@ The **Specification** (`Protection_Relay_Test_Documentation_Specification.docx`)
 | SEL-311L | SEL | Line diff + distance | — | `Doc files/SEL-311L_Test_Check_Sheet.docx` + `SEL-311L_Test_Results_Template.xlsx` |
 | SEL-787 | SEL | Transformer (2-winding) | `generate_SEL787_template.py` | xlsx only |
 | SEL-700G | SEL | Generator (multi-model) | `generate_SEL700G_template.py` | xlsx only |
-| ABB REG670 | ABB Relion 670 | Generator | `generate_REG670_checksheet.py` | `.docx` + xlsx |
+| ABB REG670 | ABB Relion 670 | Generator | xlsx: `generate_REG670_template.py`; docx: `generate_REG670_checksheet.py` | `.docx` + xlsx |
 | ABB RET670 | ABB Relion 670 | Transformer | `generate_RET670_template.py` | xlsx only |
 | ABB REF615 | ABB Relion 615 | Feeder | — | xlsx only |
 | ABB RET615 | ABB Relion 615 | Transformer | — | xlsx only |
@@ -102,8 +102,19 @@ See `Doc files/workflow for creating a checksheet.docx` for the full workflow. R
 ### Formula Architecture (xlsx)
 
 **Layer 1 — Defined names on Cover sheet** (workbook-scoped, readable names):
-- `Ratio_VTmain`, `Ratio_CTstator`, etc. → ratio cells on Cover
-- `TolV_pct`, `TolI_pct`, `TolAngle_deg`, `TolPickup_pct`, `TolTime_pct` → tolerance cells (yellow fill)
+
+Per-relay name conventions (all workbook-scoped):
+
+| Template | CT ratio names | VT ratio names |
+|----------|---------------|----------------|
+| SEL-787 | `Ratio_CTR1`, `Ratio_CTR2`, `Ratio_CTRN` | `Ratio_PTR` |
+| SEL-700G | `Ratio_CTRX`, `Ratio_CTRY`, `Ratio_CTRN` | `Ratio_PTRX` |
+| REG670 | `Ratio_CT_stator`, `Ratio_CT_Y`, `Ratio_CT_neut` | `Ratio_VT_main`, `Ratio_VT_neut` |
+| RET670 | `Ratio_CT_W1`, `Ratio_CT_W2`, `Ratio_CT_W3` | `Ratio_VT` |
+
+Tolerance names are identical across all templates: `TolV_pct`, `TolI_pct`, `TolAngle_deg`, `TolPickup_pct`, `TolTime_pct` → yellow fill cells on Cover.
+
+**VT ratio formula:** `VTprim_kV * 1000 / VTsec_V` (primary stored in kV for high-voltage relays; secondary in V). Neutral VTs follow the same convention.
 
 **Layer 2 — Per-row in Analogue Inputs tab:**
 - Expected Primary = `injected_secondary × Ratio_<applicable>`
