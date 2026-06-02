@@ -3,3 +3,6 @@
 
 # Generation scripts — xlsx deliverables are the tracked artefacts
 *.py
+
+# LibreOffice lock files
+.~lock.*
