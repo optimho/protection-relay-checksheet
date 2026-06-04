@@ -1,8 +1,5 @@
 # Manufacturer manuals — large binaries, not source-controlled
 *.pdf
 
-# Generation scripts — xlsx deliverables are the tracked artefacts
-*.py
-
 # LibreOffice lock files
 .~lock.*
