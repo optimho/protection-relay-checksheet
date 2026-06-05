@@ -3,3 +3,6 @@
 
 # LibreOffice lock files
 .~lock.*
+
+# Python bytecode cache
+__pycache__/
